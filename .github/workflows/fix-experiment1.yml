@@ -1,0 +1,42 @@
+name: Fix Experiment 1 files
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-experiment1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          p = Path('Lab 1/generate_experiment1_pdf.py')
+          s = p.read_text()
+          s = s.replace(", learning_rate='constant'", "")
+          p.write_text(s)
+
+          p = Path('Lab 1/Experiment 1.ipynb')
+          nb = json.loads(p.read_text())
+          for cell in nb['cells']:
+              if cell.get('cell_type') == 'code':
+                  cell['source'] = [line.replace(', learning_rate=\"constant\"', '') for line in cell.get('source', [])]
+          p.write_text(json.dumps(nb, separators=(',', ':')))
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'Lab 1/generate_experiment1_pdf.py' 'Lab 1/Experiment 1.ipynb'
+          git commit -m 'Fix Experiment 1 notebook and PDF generator'
+          git pull --rebase origin main
+          git push
