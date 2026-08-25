@@ -502,7 +502,7 @@ tl = Table(lrt, colWidths=[1.7*cm, 1.7*cm] + [2.5*cm]*4)
 tl.setStyle(tstyle(6.7))
 story.append(tl)
 story.append(Paragraph('8.4 Scratch and Scikit-learn', styles['H2R']))
-sk_model = Perceptron(max_iter=100, tol=None, eta0=0.01, learning_rate='constant', fit_intercept=True, shuffle=False, random_state=42)
+sk_model = Perceptron(max_iter=100, tol=None, eta0=0.01, fit_intercept=True, shuffle=False, random_state=42)
 sk_model.fit(X_train_scaled, y_train)
 sk_pred = sk_model.predict(X_test_scaled)
 comp = [['Model', 'Accuracy', 'Precision', 'Recall', 'F1'], ['Scratch', f'{accuracy_score(y_test, y_pred):.6f}', f'{precision_score(y_test, y_pred):.6f}', f'{recall_score(y_test, y_pred):.6f}', f'{f1_score(y_test, y_pred):.6f}'], ['Scikit-learn', f'{accuracy_score(y_test, sk_pred):.6f}', f'{precision_score(y_test, sk_pred):.6f}', f'{recall_score(y_test, sk_pred):.6f}', f'{f1_score(y_test, sk_pred):.6f}']]
