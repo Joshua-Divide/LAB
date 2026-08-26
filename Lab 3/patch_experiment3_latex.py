@@ -1,10 +1,13 @@
 import fitz
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
 
 PDF = Path(__file__).resolve().parent / "Experiment 3.pdf"
 WORK = Path(tempfile.mkdtemp(prefix="exp3_latex_"))
+BACKUP = WORK / "Experiment 3.before_latex.pdf"
+shutil.copy2(PDF, BACKUP)
 
 
 def formula(name, body, fontsize=10.5):
@@ -22,6 +25,56 @@ def formula(name, body, fontsize=10.5):
         "-output-directory", str(WORK), str(path)
     ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     return WORK / f"{name}.pdf"
+
+
+def find_feature_page(doc):
+    for i, page in enumerate(doc):
+        if "7.7 Feature Maps" in page.get_text():
+            return i
+    raise RuntimeError("Section 7.7 Feature Maps was not found")
+
+
+def feature_map_layout_ok(path):
+    doc = fitz.open(path)
+    page_index = find_feature_page(doc)
+    page = doc[page_index]
+    rects = []
+    for image in page.get_images(full=True):
+        rects.extend(page.get_image_rects(image[0]))
+    ok = bool(rects)
+    for rect in rects:
+        ok = ok and rect.x0 >= 40 and rect.x1 <= page.rect.width - 40
+        ok = ok and rect.y0 >= 40 and rect.y1 <= page.rect.height - 40
+        ok = ok and rect.width <= page.rect.width - 80
+    doc.close()
+    return ok, page_index
+
+
+def restore_feature_page(patched_path, original_path, page_index):
+    patched = fitz.open(patched_path)
+    original = fitz.open(original_path)
+    repaired = fitz.open()
+    for i in range(patched.page_count):
+        source = original if i == page_index else patched
+        repaired.insert_pdf(source, from_page=i, to_page=i)
+    out = WORK / "Experiment 3.repaired.pdf"
+    repaired.save(out, garbage=4, deflate=True, clean=True)
+    repaired.close()
+    patched.close()
+    original.close()
+    out.replace(patched_path)
+
+
+def verify_identity(path):
+    doc = fitz.open(path)
+    first = doc[0].get_text()
+    doc.close()
+    if "Experiment 3" not in first:
+        raise RuntimeError("Report title is not Experiment 3")
+    if "Joshua" not in first:
+        raise RuntimeError("Student name is not Joshua")
+    if "24110085" not in first:
+        raise RuntimeError("Roll number 24110085 is missing")
 
 
 formulas = {
@@ -88,4 +141,14 @@ for page_number, rect, key in replacements:
 tmp = PDF.with_suffix(".latex.pdf")
 doc.save(tmp, garbage=4, deflate=True, clean=True)
 doc.close()
+
+ok, feature_page = feature_map_layout_ok(tmp)
+if not ok:
+    restore_feature_page(tmp, BACKUP, feature_page)
+
+verify_identity(tmp)
+ok, _ = feature_map_layout_ok(tmp)
+if not ok:
+    raise RuntimeError("Section 7.7 feature maps are still outside the page bounds")
+
 tmp.replace(PDF)
