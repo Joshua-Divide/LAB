@@ -1,0 +1,127 @@
+{
+  "cross_validation": [
+    {
+      "name": "C1",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.5,
+      "optimizer": "Adam",
+      "use_bn": true,
+      "init": "Xavier",
+      "strategy": "Frozen base",
+      "folds": [
+        0.938858695652174,
+        0.9307065217391305,
+        0.9429347826086957,
+        0.9211956521739131,
+        0.9429347826086957
+      ],
+      "mean": 0.9353260869565216,
+      "sd": 0.008357911140885698,
+      "time_s": 10.387464584999975
+    },
+    {
+      "name": "C2",
+      "learning_rate": 0.0005,
+      "batch_size": 32,
+      "dropout": 0.25,
+      "optimizer": "Adam",
+      "use_bn": true,
+      "init": "Xavier",
+      "strategy": "Frozen base",
+      "folds": [
+        0.936141304347826,
+        0.9293478260869565,
+        0.9252717391304348,
+        0.9184782608695652,
+        0.9470108695652174
+      ],
+      "mean": 0.9312500000000001,
+      "sd": 0.009744794063609303,
+      "time_s": 10.182778251999935
+    },
+    {
+      "name": "C3",
+      "learning_rate": 0.001,
+      "batch_size": 64,
+      "dropout": 0.5,
+      "optimizer": "Adam",
+      "use_bn": true,
+      "init": "Xavier",
+      "strategy": "Frozen base",
+      "folds": [
+        0.936141304347826,
+        0.9252717391304348,
+        0.9225543478260869,
+        0.9211956521739131,
+        0.9442934782608695
+      ],
+      "mean": 0.929891304347826,
+      "sd": 0.008913706231987324,
+      "time_s": 7.4491063579999945
+    },
+    {
+      "name": "C4",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.0,
+      "optimizer": "Adam",
+      "use_bn": true,
+      "init": "Xavier",
+      "strategy": "Frozen base",
+      "folds": [
+        0.9320652173913043,
+        0.9307065217391305,
+        0.9307065217391305,
+        0.9211956521739131,
+        0.9456521739130435
+      ],
+      "mean": 0.9320652173913043,
+      "sd": 0.007828728418960812,
+      "time_s": 10.03538099800005
+    }
+  ],
+  "selected_cv_configuration": "C1",
+  "additional_exercise": [
+    {
+      "name": "E1",
+      "learning_rate": 0.0005,
+      "batch_size": 48,
+      "dropout": 0.35,
+      "optimizer": "Adam",
+      "use_bn": true,
+      "init": "Xavier",
+      "strategy": "Frozen base",
+      "folds": [
+        0.9347826086956522,
+        0.9130434782608695,
+        0.936141304347826,
+        0.9171195652173914,
+        0.9429347826086957
+      ],
+      "mean": 0.9288043478260869,
+      "sd": 0.011611880771316042,
+      "time_s": 8.450301405999994
+    },
+    {
+      "name": "E2",
+      "learning_rate": 0.0002,
+      "batch_size": 64,
+      "dropout": 0.1,
+      "optimizer": "Adam",
+      "use_bn": true,
+      "init": "Xavier",
+      "strategy": "Frozen base",
+      "folds": [
+        0.9320652173913043,
+        0.9130434782608695,
+        0.9211956521739131,
+        0.9157608695652174,
+        0.9347826086956522
+      ],
+      "mean": 0.9233695652173912,
+      "sd": 0.008661618179624594,
+      "time_s": 7.143823089999955
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "seed": 42,
+  "dataset": {
+    "name": "Oxford-IIIT Pet",
+    "classes": [
+      "Abyssinian",
+      "American Bulldog",
+      "American Pit Bull Terrier",
+      "Basset Hound",
+      "Beagle",
+      "Bengal",
+      "Birman",
+      "Bombay",
+      "Boxer",
+      "British Shorthair",
+      "Chihuahua",
+      "Egyptian Mau",
+      "English Cocker Spaniel",
+      "English Setter",
+      "German Shorthaired",
+      "Great Pyrenees",
+      "Havanese",
+      "Japanese Chin",
+      "Keeshond",
+      "Leonberger",
+      "Maine Coon",
+      "Miniature Pinscher",
+      "Newfoundland",
+      "Persian",
+      "Pomeranian",
+      "Pug",
+      "Ragdoll",
+      "Russian Blue",
+      "Saint Bernard",
+      "Samoyed",
+      "Scottish Terrier",
+      "Shiba Inu",
+      "Siamese",
+      "Sphynx",
+      "Staffordshire Bull Terrier",
+      "Wheaten Terrier",
+      "Yorkshire Terrier"
+    ],
+    "trainval_count": 3680,
+    "train_count": 2944,
+    "validation_count": 736,
+    "test_count": 3669,
+    "image_size": "224 x 224 x 3",
+    "feature_extraction_train_time_s": 53.87380268600003,
+    "feature_extraction_test_time_s": 53.905725331999975
+  },
+  "batch_norm_numerical": {
+    "input": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "mean": 5.0,
+    "variance": 5.0,
+    "std": 2.23606797749979,
+    "normalized": [
+      -1.3416407864998738,
+      -0.4472135954999579,
+      0.4472135954999579,
+      1.3416407864998738
+    ],
+    "gamma": 1.0,
+    "beta": 0.0
+  },
+  "convolution_dimension_examples": [
+    {
+      "N": 224,
+      "K": 3,
+      "P": 1,
+      "S": 1,
+      "O": 224
+    },
+    {
+      "N": 224,
+      "K": 3,
+      "P": 1,
+      "S": 2,
+      "O": 112
+    },
+    {
+      "N": 224,
+      "K": 5,
+      "P": 0,
+      "S": 1,
+      "O": 220
+    }
+  ]
+}

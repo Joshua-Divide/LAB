@@ -1,0 +1,141 @@
+{
+  "hyperparameter_study": [
+    {
+      "setting": "Learning Rate 0.001",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.25,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9402173913043478,
+      "time_s": 1.9283260490000202
+    },
+    {
+      "setting": "Learning Rate 0.0001",
+      "learning_rate": 0.0001,
+      "batch_size": 32,
+      "dropout": 0.25,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9225543478260869,
+      "time_s": 1.9074464840000473
+    },
+    {
+      "setting": "Batch Size 16",
+      "learning_rate": 0.001,
+      "batch_size": 16,
+      "dropout": 0.25,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9307065217391305,
+      "time_s": 3.0507770840000035
+    },
+    {
+      "setting": "Batch Size 32",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.25,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9402173913043478,
+      "time_s": 1.9283260490000202
+    },
+    {
+      "setting": "Batch Size 64",
+      "learning_rate": 0.001,
+      "batch_size": 64,
+      "dropout": 0.25,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9402173913043478,
+      "time_s": 1.324696705000008
+    },
+    {
+      "setting": "Dropout 0",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.0,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9347826086956522,
+      "time_s": 1.7559058300000174
+    },
+    {
+      "setting": "Dropout 0.25",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.25,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9402173913043478,
+      "time_s": 1.9283260490000202
+    },
+    {
+      "setting": "Dropout 0.5",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.5,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9415760869565217,
+      "time_s": 1.9402735969999867
+    },
+    {
+      "setting": "Optimizer SGD",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.25,
+      "optimizer": "SGD",
+      "best_val_accuracy": 0.7554347826086957,
+      "time_s": 1.4477978429999894
+    },
+    {
+      "setting": "Optimizer Adam",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "dropout": 0.25,
+      "optimizer": "Adam",
+      "best_val_accuracy": 0.9402173913043478,
+      "time_s": 1.9283260490000202
+    }
+  ],
+  "best_hyperparameters": {
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "dropout": 0.5,
+    "optimizer": "Adam",
+    "use_bn": true,
+    "init": "Xavier"
+  },
+  "fine_tuning_lr_study": {
+    "0.0001": {
+      "history": {
+        "train_loss": [
+          0.11664626526686808
+        ],
+        "train_accuracy": [
+          0.9653532608695652
+        ],
+        "val_loss": [
+          0.24816447172475897
+        ],
+        "val_accuracy": [
+          0.9198369565217391
+        ]
+      },
+      "best_val_accuracy": 0.9198369565217391,
+      "time_s": 63.56454981700006
+    },
+    "1e-05": {
+      "history": {
+        "train_loss": [
+          0.08758474537171423
+        ],
+        "train_accuracy": [
+          0.975203804347826
+        ],
+        "val_loss": [
+          0.2097534307319185
+        ],
+        "val_accuracy": [
+          0.9320652173913043
+        ]
+      },
+      "best_val_accuracy": 0.9320652173913043,
+      "time_s": 63.74440128399999
+    }
+  },
+  "best_fine_tuning_lr": 1e-05
+}

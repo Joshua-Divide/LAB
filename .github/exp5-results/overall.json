@@ -1,0 +1,52 @@
+{
+  "overall_results": [
+    {
+      "label": "Baseline",
+      "cv_accuracy": null,
+      "sd": null,
+      "test_accuracy": 0.9095121286454074,
+      "test_loss": 0.31901405382932907,
+      "training_time_s": 2.263382080999918
+    },
+    {
+      "label": "Best Initialization",
+      "cv_accuracy": null,
+      "sd": null,
+      "test_accuracy": 0.9067865903515945,
+      "test_loss": 0.3282872061718547,
+      "training_time_s": 2.2306918130000213
+    },
+    {
+      "label": "Best Regularization",
+      "cv_accuracy": null,
+      "sd": null,
+      "test_accuracy": 0.9059689288634505,
+      "test_loss": 0.334134182707186,
+      "training_time_s": 2.544586124000034
+    },
+    {
+      "label": "Best Optimizer",
+      "cv_accuracy": null,
+      "sd": null,
+      "test_accuracy": 0.9067865903515945,
+      "test_loss": 0.4065568221321253,
+      "training_time_s": 2.627941213999975
+    },
+    {
+      "label": "Best Hyperparameters",
+      "cv_accuracy": 0.9353260869565216,
+      "sd": 0.008357911140885698,
+      "test_accuracy": 0.9056963750340692,
+      "test_loss": 0.31051329046926435,
+      "training_time_s": 2.8494219660000226
+    },
+    {
+      "label": "Fine-Tuned Model",
+      "cv_accuracy": 0.9353260869565216,
+      "sd": 0.008357911140885698,
+      "test_accuracy": 0.9065140365222132,
+      "test_loss": 0.3222596975828783,
+      "training_time_s": 128.80820990400002
+    }
+  ]
+}
