@@ -1,0 +1,57 @@
+name: Experiment 5 Compute
+
+on:
+  push:
+    branches:
+      - exp5-compute
+    paths:
+      - '.github/exp5_compute.py'
+      - '.github/workflows/exp5-compute.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install numpy scikit-learn pillow
+      - name: Run experiment
+        run: python .github/exp5_compute.py
+      - name: Split result files
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('.github/exp5-results/results.json')
+          r = json.loads(p.read_text())
+          groups = {
+              'dataset.json': {k:r[k] for k in ['seed','dataset','batch_norm_numerical','convolution_dimension_examples']},
+              'initialization.json': {'initialization':r['initialization'],'best_initialization':r['best_initialization']},
+              'regularization.json': {'regularization':r['regularization'],'best_regularization':r['best_regularization']},
+              'optimizers.json': {'optimizers':r['optimizers'],'best_optimizer':r['best_optimizer']},
+              'hyperparameters.json': {'hyperparameter_study':r['hyperparameter_study'],'best_hyperparameters':r['best_hyperparameters'],'fine_tuning_lr_study':r['fine_tuning_lr_study'],'best_fine_tuning_lr':r['best_fine_tuning_lr']},
+              'transfer.json': {'feature_extraction':r['feature_extraction'],'fine_tuning':r['fine_tuning']},
+              'cross_validation.json': {'cross_validation':r['cross_validation'],'selected_cv_configuration':r['selected_cv_configuration'],'additional_exercise':r['additional_exercise']},
+              'final_model.json': {'final_model':r['final_model']},
+              'overall.json': {'overall_results':r['overall_results']}
+          }
+          for name, obj in groups.items():
+              (p.parent/name).write_text(json.dumps(obj, indent=2))
+          PY
+      - name: Commit executed results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/exp5-results
+          git commit -m 'Store Experiment 5 executed results [skip ci]' || exit 0
+          git push origin HEAD:exp5-compute
