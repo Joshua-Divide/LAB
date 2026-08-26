@@ -1,0 +1,30 @@
+name: Build Experiment 3
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Lab 3/generate_experiment3.py'
+      - '.github/workflows/build-experiment3.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --quiet tensorflow-cpu==2.17.1 numpy pandas matplotlib scikit-learn reportlab pillow
+      - run: python 'Lab 3/generate_experiment3.py'
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'Lab 3/Experiment 3.pdf'
+          git commit -m 'Add Experiment 3 PDF'
+          git pull --rebase origin main
+          git push
