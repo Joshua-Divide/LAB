@@ -1,0 +1,29 @@
+name: Experiment 7 MNIST download
+on:
+  push:
+    branches:
+      - experiment-7-mnist-fetch-20260923
+    paths:
+      - .github/workflows/experiment-7-mnist-fetch.yml
+permissions:
+  contents: read
+jobs:
+  dataset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Download the original MNIST archive
+        run: |
+          curl --fail --location --retry 3 --max-time 120 https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz -o mnist.npz
+          sha256sum mnist.npz > mnist.sha256
+          test $(stat -c%s mnist.npz) -gt 10000000
+      - name: Export dataset for the lab execution
+        uses: actions/upload-artifact@v4
+        with:
+          name: experiment-7-mnist
+          path: |
+            mnist.npz
+            mnist.sha256
+          retention-days: 1
+          compression-level: 0
+          if-no-files-found: error
