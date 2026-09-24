@@ -1,0 +1,32 @@
+name: Finalize Lab 6 transfer
+
+on:
+  push:
+    paths:
+      - '.lab6-transfer/**'
+      - '.github/workflows/lab6-transfer.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct Lab 6
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "dc3f26a28621fd36a2fdc26e9c529c364c9572e3b905aca32596f1e8a6afc789  .lab6-transfer/payload.tar.xz" | sha256sum -c -
+          mkdir -p "Lab 6"
+          tar -xJf .lab6-transfer/payload.tar.xz -C "Lab 6"
+          echo "be0127c6793a57379ea73e44f918b4c4e4d196ccaae3a60cafeb03fe8b52d97c  Lab 6/Experiment_6.pdf" | sha256sum -c -
+          echo "61f43036b73cef8ae251e25747dd9c2df2a124a549604a3de28716f54866f84c  Lab 6/Experiment 6.ipynb" | sha256sum -c -
+          rm -rf .lab6-transfer .github/workflows/lab6-transfer.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add Lab 6 experiment files"
+          git push
